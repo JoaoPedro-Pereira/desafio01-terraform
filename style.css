@@ -1,0 +1,278 @@
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-primary: #050505;
+    --bg-card: rgba(10, 25, 40, 0.7);
+    --border-glow: rgba(0, 255, 255, 0.5);
+    --text-primary: #e0ffff;
+    --text-secondary: #00cccc;
+    --accent-cyan: #00ffff;
+    --accent-purple: #b000ff;
+    --accent-green: #00ff00;
+    --font-family: 'Inter', 'Courier New', monospace;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--bg-primary);
+    background: radial-gradient(circle at center, #0a0a1a 0%, #000 100%);
+    color: var(--text-primary);
+    font-family: var(--font-family);
+    overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: var(--accent-cyan); border-radius: 4px; }
+
+.dashboard-container {
+    padding: 2rem;
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--accent-cyan);
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 10px var(--accent-cyan);
+}
+
+.dashboard-header h1 {
+    font-size: 2rem;
+    letter-spacing: 2px;
+}
+
+.highlight { color: var(--accent-cyan); }
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: bold;
+    color: var(--accent-green);
+    text-shadow: 0 0 10px var(--accent-green);
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    background-color: var(--accent-green);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent-green);
+}
+
+.pulse {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.95); opacity: 0.7; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(0.95); opacity: 0.7; }
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-glow);
+    border-radius: 8px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+    box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.1), 0 0 15px rgba(0, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 50%; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+    animation: scanline 4s linear infinite;
+}
+
+@keyframes scanline {
+    0% { left: -100%; }
+    100% { left: 200%; }
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.2), 0 0 25px rgba(0, 255, 255, 0.3);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+}
+
+.metric-value {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 15px var(--accent-cyan);
+}
+
+.unit {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-left: 0.25rem;
+}
+
+.progress-bar {
+    height: 8px;
+    background: rgba(0, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--accent-cyan);
+    box-shadow: 0 0 10px var(--accent-cyan);
+    transition: width 0.3s ease;
+}
+
+.progress-fill.purple {
+    background: var(--accent-purple);
+    box-shadow: 0 0 10px var(--accent-purple);
+}
+
+.scan-anim {
+    background: linear-gradient(90deg, var(--accent-cyan), transparent);
+    animation: scanline 2s linear infinite;
+}
+
+.terminal-card {
+    grid-column: 1 / -1;
+    background: rgba(0, 0, 0, 0.8);
+    border-color: var(--text-secondary);
+}
+
+.terminal-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--text-secondary);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.terminal-body {
+    font-family: 'Courier New', monospace;
+    color: var(--accent-green);
+    font-size: 1rem;
+    min-height: 150px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.log-line {
+    margin-bottom: 0.25rem;
+}
+
+.prompt {
+    color: var(--accent-cyan);
+    margin-right: 0.5rem;
+}
+
+.cursor {
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.button-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.cyber-button {
+    background: transparent;
+    border: 1px solid var(--accent-cyan);
+    color: var(--accent-cyan);
+    padding: 0.75rem 1rem;
+    font-family: var(--font-family);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.cyber-button::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: var(--accent-cyan);
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+.cyber-button:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.cyber-button:hover {
+    color: var(--bg-primary);
+    box-shadow: 0 0 15px var(--accent-cyan);
+}
+
+.cyber-button.secondary {
+    border-color: var(--accent-purple);
+    color: var(--accent-purple);
+}
+.cyber-button.secondary::after { background: var(--accent-purple); }
+.cyber-button.secondary:hover { color: #fff; box-shadow: 0 0 15px var(--accent-purple); }
+
+.cyber-button.danger {
+    border-color: #ff003c;
+    color: #ff003c;
+}
+.cyber-button.danger::after { background: #ff003c; }
+.cyber-button.danger:hover { color: #fff; box-shadow: 0 0 15px #ff003c; }
+
+.cyber-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: 
+        linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+    z-index: 0;
+    pointer-events: none;
+}

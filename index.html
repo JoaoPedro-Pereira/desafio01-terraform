@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Cloud | Server 01</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <h1>NEXUS_CLOUD // <span class="highlight">SERVER_01</span></h1>
+            <div class="status-indicator">
+                <span class="dot pulse"></span>
+                <span>ONLINE</span>
+            </div>
+        </header>
+
+        <main class="dashboard-grid">
+            <!-- CPU Card -->
+            <div class="card cpu-card">
+                <div class="card-header">
+                    <i class="icon">⚡</i>
+                    <h2>CPU_USAGE</h2>
+                </div>
+                <div class="metric-value">
+                    <span id="cpu-value">24.5</span><span class="unit">%</span>
+                </div>
+                <div class="progress-bar">
+                    <div id="cpu-bar" class="progress-fill" style="width: 24.5%"></div>
+                </div>
+            </div>
+
+            <!-- RAM Card -->
+            <div class="card ram-card">
+                <div class="card-header">
+                    <i class="icon">🧠</i>
+                    <h2>MEM_ALLOCATION</h2>
+                </div>
+                <div class="metric-value">
+                    <span id="ram-value">45.2</span><span class="unit">%</span>
+                </div>
+                <div class="progress-bar">
+                    <div id="ram-bar" class="progress-fill purple" style="width: 45.2%"></div>
+                </div>
+            </div>
+
+            <!-- Network Card -->
+            <div class="card network-card">
+                <div class="card-header">
+                    <i class="icon">🌐</i>
+                    <h2>NET_TRAFFIC</h2>
+                </div>
+                <div class="metric-value">
+                    <span id="network-value">120</span><span class="unit">MB/s</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill scan-anim" style="width: 100%"></div>
+                </div>
+            </div>
+
+            <!-- Terminal Window -->
+            <div class="card terminal-card">
+                <div class="terminal-header">
+                    <span>SYS_LOGS</span>
+                    <div class="window-controls">
+                        <span>_</span>
+                        <span>□</span>
+                        <span>×</span>
+                    </div>
+                </div>
+                <div class="terminal-body" id="terminal">
+                    <!-- Logs injected by JS -->
+                    <div class="log-line typing" id="cursor-line">
+                        <span class="prompt">&gt;</span> <span class="cursor">_</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Controls -->
+            <div class="card controls-card">
+                <div class="card-header">
+                    <i class="icon">⚙️</i>
+                    <h2>SYSTEM_CONTROLS</h2>
+                </div>
+                <div class="button-grid">
+                    <button class="cyber-button" onclick="addLog('INITIATING NODE REBOOT...')">REBOOT_NODE</button>
+                    <button class="cyber-button secondary" onclick="addLog('CACHE FLUSHED SUCCESSFULLY.')">FLUSH_CACHE</button>
+                    <button class="cyber-button secondary" onclick="addLog('REQUESTING KEY UPDATE...')">UPDATE_KEY</button>
+                    <button class="cyber-button danger" onclick="addLog('WARNING: MANUAL OVERRIDE ENGAGED.')">OVERRIDE</button>
+                </div>
+            </div>
+        </main>
+        
+        <div class="cyber-overlay"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
